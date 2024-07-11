@@ -30,7 +30,6 @@
 						GetFunctionName(DumpCollection);\
 						GetFunctionName(ApplyMeleeHit);\
 						GetFunctionName(ApplyHit);\
-						GetFunctionName(ApplyProjHit);\
 						GetFunctionName(SetSlowTimeMult);\
 						GetFunctionName(GetSlowTimeMult);\
 						GetFunctionName(GetInSameCellOrWorldSpace);\
@@ -75,7 +74,6 @@
 						RetFuncInfo(DumpCollection) { pForm, pStr };\
 						RetFuncInfo(ApplyMeleeHit) { pRef, pRef, pBool };\
 						RetFuncInfo(ApplyHit) { pRef, pRef, pForm, pBool };\
-						RetFuncInfo(ApplyProjHit) { pRef, pRef, pForm, pForm };\
 						RetFuncInfo(SetSlowTimeMult) { pFlt, pFlt, pBool };\
 						RetFuncInfo(GetSlowTimeMult) { pBool };\
 						RetFuncInfo(GetInSameCellOrWorldSpace) { pRef, pRef };\
@@ -133,7 +131,6 @@
 					CallFunctionNoRet(TrashUtility::DumpCollection, DumpCollection)				(Arg_Form(0), Arg_Str(1), Arg_Int(2)); ReturnVoid;\
 					CallFunctionNoRet(Trash_Function::ApplyHit, ApplyMeleeHit)					(Arg_Ref(0)->As<RE::Character>(), Arg_Ref(1)->As<RE::Character>(), Arg_Bool(2)); ReturnVoid;\
 					CallFunctionNoRet(Trash_Function::ApplyHit, ApplyHit)						(Arg_Ref(0)->As<RE::Character>(), Arg_Ref(1)->As<RE::Character>(), Arg_Form(2)->As<RE::TESObjectWEAP>(), Arg_Bool(3)); ReturnVoid;\
-					CallFunctionNoRet(Trash_Function::ApplyHit, ApplyProjHit)					(Arg_Ref(0)->As<RE::Character>(), Arg_Ref(1)->As<RE::Character>(), Arg_Form(2)->As<RE::TESAmmo>(), Arg_Form(3)->As<RE::TESObjectWEAP>()); ReturnVoid;\
 					CallFunctionNoRet(Trash_Function::TimeMultSetter, SetSlowTimeMult)			(Arg_Flt(0), Arg_Flt(1), Arg_Bool(2)); ReturnVoid;\
 					CallFunction(Trash_Function::TimeMultSetter, GetSlowTimeMult)				(Arg_Bool(0));\
 					CallFunction(Trash_Function::Distance, GetInSameCellOrWorldSpace)			(Arg_Ref(0), Arg_Ref(1));\
@@ -178,47 +175,49 @@ namespace TrashConsoleAddon::FuncInformation
 	enum Func_ID : uint16_t
 	{
 		GetPosAsArray = 0,
-		SetPosAlt = 1,
-		GetHeadingPointAngle = 2,
-		GetHeadingAngleBetweenPoints = 3,
-		GetHeadingAngleX = 4,
-		GetHeadingPointAngleX = 5,
-		GetHeadingAngleBetweenPointsX = 6,
-		GetDistanceFromPoint2D = 7,
-		GetDistanceBetweenPoints2D = 8,
-		GetDistance2D = 9,
-		GetDistanceBetweenPoints3D = 10,
-		GetDistanceFromPoint3D = 11,
-		GetDistance3D = 12,
-		PlaySoundAtPoint = 13,
-		InstantCastToActors = 14,
-		InstantCastToActorsWithFilter = 15,
-		DumpCollection = 16,
-		ApplyMeleeHit = 17,
-		ApplyHit = 18,
-		ApplyProjHit = 19,
-		SetSlowTimeMult = 20,
-		GetSlowTimeMult = 21,
-		GetInSameCellOrWorldSpace = 22,
-		DumpAllCollection = 23,
-		DumpAllAuxArr = 24,
-		DumpAllRefMap = 25,
+		SetPosAlt ,
+		GetHeadingPointAngle ,
+		GetHeadingAngleBetweenPoints ,
+		GetHeadingAngleX ,
+		GetHeadingPointAngleX ,
+		GetHeadingAngleBetweenPointsX ,
+		GetDistanceFromPoint2D ,
+		GetDistanceBetweenPoints2D ,
+		GetDistance2D ,
+		GetDistanceBetweenPoints3D ,
+		GetDistanceFromPoint3D ,
+		GetDistance3D ,
+		PlaySoundAtPoint ,
+		InstantCastToActors ,
+		InstantCastToActorsWithFilter ,
+		DumpCollection ,
+		ApplyMeleeHit ,
+		ApplyHit ,
+		SetSlowTimeMult ,
+		GetSlowTimeMult ,
+		GetInSameCellOrWorldSpace ,
+		
+		DumpAllCollection ,
+		DumpAllAuxArr ,
+		DumpAllRefMap ,
 
-		LookMovementScale = 26,
-		IsLookMovementScale = 27,
-		GetMoveDirection = 28,
-		GetLookMoveDirection = 29,
-		IsMoveDisabled = 30,
-		SetMoveDisabled = 31,
-		ReverseMove = 32,
-		ReverseLook = 33,
-		SetAllReverse = 34,
-		GetLookMovementScale = 35,
-		SetMoveOverwrite = 36,
-		SetLookMoveOverwrite = 37,
-		GetMoveOverwrite = 38,
-		GetLookMoveOverwrite = 39,
-		Total
+		LookMovementScale ,
+		IsLookMovementScale ,
+		GetMoveDirection ,
+		GetLookMoveDirection ,
+		IsMoveDisabled ,
+		SetMoveDisabled ,
+		ReverseMove ,
+		ReverseLook ,
+		SetAllReverse ,
+		GetLookMovementScale ,
+		SetMoveOverwrite ,
+		SetLookMoveOverwrite ,
+		GetMoveOverwrite ,
+		GetLookMoveOverwrite ,
+		
+		Total,
+		None
 	};
 
 	FuncName get_func_name(u_Func_ID _id) {
@@ -510,7 +509,7 @@ namespace TrashConsoleAddon
 		static void Hook();
 
 	private:
-		static void PrintFuncList();
+		static void PrintFuncList(u_Func_ID begin = None, u_Func_ID end = None);
 		static bool PraseArgs(const std::string& s_arg, const param_type_id& ptype_id, std::vector<variant_arg>& params); 
 		static bool PraseCmd(const std::string& _cmd); 
 		static void CompileAndRun(RE::Script* a_script, RE::ScriptCompiler* a_compiler, RE::COMPILER_NAME a_name, RE::TESObjectREFR* a_targetRef);
@@ -518,11 +517,14 @@ namespace TrashConsoleAddon
 	};
 
 	
-	void ConsoleAddon::PrintFuncList()
+	void ConsoleAddon::PrintFuncList(u_Func_ID begin,u_Func_ID end)
 	{
 		std::string output = "";
 		std::string s_temp = "";
-		for (u_Func_ID i = 0; i < Total; i++) { 
+
+		auto _beg = begin == None ? (u_Func_ID)0 : begin;
+		auto _end = end == None ? Total : end;
+		for (u_Func_ID i = _beg; i < _end; i++) {
 			switch (i)
 			{
 			case LookMovementScale:
@@ -644,6 +646,9 @@ namespace TrashConsoleAddon
 	bool ConsoleAddon::PraseCmd(const std::string& _cmd)
 	{
 constexpr auto HELP = "trashutility";
+constexpr auto HELP_FUNC = "trashutility-function";
+constexpr auto HELP_CTRL = "trashutility-playerctrl";
+constexpr auto HELP_Coll = "trashutility-collection";
 #define PrintMsg(Msg, ...) RE::ConsoleLog::GetSingleton()->Print(Msg ,##__VA_ARGS__);
 		if (_cmd.empty()) return PraseFailed;
 
@@ -654,7 +659,22 @@ constexpr auto HELP = "trashutility";
 		if (cmd_sections[0] == HELP) {
 			PrintFuncList();
 			return PraseSuccess;
-		} 
+		}
+		else if (cmd_sections[0] == HELP_FUNC)
+		{
+			PrintFuncList(0, DumpAllCollection);
+			return PraseSuccess;
+		}
+		else if (cmd_sections[0] == HELP_Coll)
+		{
+			PrintFuncList(DumpAllCollection, LookMovementScale);
+			return PraseSuccess;
+		}
+		else if (cmd_sections[0] == HELP_CTRL)
+		{
+			PrintFuncList(LookMovementScale, Total);
+			return PraseSuccess;
+		}
 
 		if (const FuncName& func_name = cmd_sections[0]; !func_name.empty()) {
 
