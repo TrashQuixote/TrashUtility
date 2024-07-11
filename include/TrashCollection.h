@@ -6,7 +6,6 @@
 #include <map>
 #include <set>
 #include <algorithm>
-#define COLLECTION_DEQUE TrashCollection::Deque
 #define COLLECTION_REFMAP TrashCollection::RefMap
 #define COLLECTION_VECTOR TrashCollection::Vector
 
@@ -14,7 +13,6 @@ namespace TrashCollection {
 	using ref = RE::TESForm*;
 	using ref_id = RE::FormID;
 	using none = std::monostate;
-	//using elem =  TrashCollection::elem;
 	using elem =  std::variant<none,float,ref>;
 	
 

@@ -90,6 +90,8 @@ namespace _TrashManager
 		inline std::vector<RE::TESForm*> MapGetVals_Ref(const Holder holder, const CollectionName& name) const;
 		inline bool MapErase(const Holder holder, const CollectionName& name, RE::TESForm* arg_Key) const;
 		inline bool MapEraseAll(const Holder holder, const CollectionName& name) const;
+
+		bool MapEraseInvalidKey(const Holder holder, const CollectionName& name) const;
 		
 };
 
@@ -547,6 +549,16 @@ Will insert if not find the collections */
 			return true;
 		}
 		CollectionFailToGetError(holder, name, "MapEraseAll");
+		return false;
+	}
+
+	inline bool TrashManager::MapEraseInvalidKey(const Holder holder, const CollectionName& name) const
+	{
+		if (auto Map_ptr = GetAsRefMapPtr(holder, name)) {
+			Map_ptr->EraseInvalidKeys();
+			return true;
+		}
+		CollectionFailToGetError(holder, name, "MapEraseInvalidKeys");
 		return false;
 	}
 

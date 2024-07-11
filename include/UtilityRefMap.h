@@ -11,7 +11,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return false;
 		int ret = (int)TRASHMANAGER->isMapEmpty(holder, name);
-		if (ret < 0) {logs::critical("Failed to execute the function: isMapEmpty ");return false;}
+		if (ret < 0) {logs::critical("Failed to execute the function: RefMapEmpty ");return false;}
 		return ret;
 	}
 
@@ -19,7 +19,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return false;
 		bool ret = TRASHMANAGER->MapClear(holder, name);
-		if (!ret) logs::critical("Failed to execute the function: MapClear ");
+		if (!ret) logs::critical("Failed to execute the function: RefMapClear ");
 		return ret;
 	}
 
@@ -27,7 +27,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return false;
 		int ret = (int)TRASHMANAGER->MapGetSize(holder, name);
-		if (ret < 0) logs::critical("Failed to execute the function: MapGetSize ");
+		if (ret < 0) logs::critical("Failed to execute the function: RefMapGetSize ");
 		return ret;
 	}
 
@@ -37,7 +37,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key, arg_Float)) return false;
 		bool ret = TRASHMANAGER->MapSetFloat(holder, name, arg_Key, arg_Float);
-		if (!ret) logs::critical("Failed to execute the function: MapSetFloat ");
+		if (!ret) logs::critical("Failed to execute the function: RefMapSetFloat ");
 		return ret;
 	}
 
@@ -46,7 +46,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key)) return false;
 		auto flt = TRASHMANAGER->MapGetFloatWithKey(holder, name, arg_Key);
-		if (isnan(flt)) logs::critical("Failed to execute the function: MapSetRef ");
+		if (isnan(flt)) logs::critical("Failed to execute the function: RefMapGetFloat ");
 		return flt;
 	}
 
@@ -65,7 +65,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key, arg_Ref)) return false;
 		bool ret = TRASHMANAGER->MapSetRef(holder, name, arg_Key, arg_Ref);
-		if (!ret) logs::critical("Failed to execute the function: MapSetRef ");
+		if (!ret) logs::critical("Failed to execute the function: RefMapSetRef ");
 		return ret;
 	}
 
@@ -74,7 +74,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key)) return nullptr;
 		auto ref = TRASHMANAGER->MapGetRefWithKey(holder, name, arg_Key);
-		if (!ref) logs::critical("Failed to execute the function: MapSetRef ");
+		if (!ref) logs::critical("Failed to execute the function: RefMapGetRef ");
 		return ref;
 	}
 
@@ -82,7 +82,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return {};
 		auto ref = TRASHMANAGER->MapGetVals_Float(holder, name);
-		if (ref.size()<=0) logs::critical("Failed to execute the function: MapGetFloatVals ");
+		if (ref.size()<=0) logs::critical("Failed to execute the function: RefMapGetFloatValues ");
 		return ref;
 	}
 
@@ -90,7 +90,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return {};
 		auto ref = TRASHMANAGER->MapGetVals_Ref(holder, name);
-		if (ref.size()<=0) logs::critical("Failed to execute the function: MapGetRefVals ");
+		if (ref.size()<=0) logs::critical("Failed to execute the function: RefMapGetRefValues ");
 		return ref;
 	}
 
@@ -98,7 +98,7 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return false;
 		auto ret = TRASHMANAGER->MapErase(holder, name, arg_Key);
-		if (!ret) logs::critical("Failed to execute the function: MapErase ");
+		if (!ret) logs::critical("Failed to execute the function: RefMapErase ");
 		return ret;
 	}
 
@@ -106,12 +106,21 @@ namespace TrashUtility::UtilityRefMap
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name)) return false;
 		auto ret = TRASHMANAGER->MapEraseAll(holder, name);
-		if (!ret) logs::critical("Failed to execute the function: MapEraseAll ");
+		if (!ret) logs::critical("Failed to execute the function: RefMapEraseAll ");
+		return ret;
+	}
+
+	inline bool MapEraseInvalidKey(VM_VMStackID_FunTag, const Holder holder, const CollectionName name)
+	{
+		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter, holder, name)) return false;
+		auto ret = TRASHMANAGER->MapEraseInvalidKey(holder, name);
+		if (!ret) logs::critical("Failed to execute the function: RefMapEraseInvalidKey ");
 		return ret;
 	}
 
 	inline bool binding(VM* _vm)
 	{
+		_vm->RegisterFunction("RefMapEmpty"sv, pex_name_collection, isMapEmpty);
 		_vm->RegisterFunction("RefMapClear"sv, pex_name_collection, MapClear);
 		_vm->RegisterFunction("RefMapGetSize"sv, pex_name_collection, MapGetSize);
 		_vm->RegisterFunction("RefMapSetFloat"sv, pex_name_collection, MapSetFloat);
@@ -123,6 +132,7 @@ namespace TrashUtility::UtilityRefMap
 		_vm->RegisterFunction("RefMapGetRefValues"sv, pex_name_collection, MapGetRefVals);
 		_vm->RegisterFunction("RefMapErase"sv, pex_name_collection, MapErase);
 		_vm->RegisterFunction("RefMapEraseAll"sv, pex_name_collection, MapEraseAll);
+		_vm->RegisterFunction("RefMapEraseInvalidKey"sv, pex_name_collection, MapEraseInvalidKey);
 		return true;
 	}
 }
