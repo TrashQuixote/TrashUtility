@@ -68,12 +68,12 @@ Function SetMoveDisabled(bool _Disabled = False,int flag = -1) global native
 bool Function IsMoveDisabled(int flag = -1) global native
 
 ; |flag = 0 -X | flag =1 -Y | flag =2 -X & Y | other -X & Y
-; The effect of this function is similar to sensitivity adjustment, but essentially it affects the speed of player camera movement.
-; example : When a_scale = 0.5, the  speed of player camera movement is half of the original.
+; 该函数功能类似于灵敏度修改，实际上它对玩家镜头移动速度进行缩放.
+; 如 : a_scale = 0.5时, 玩家镜头移动速度将为原来的一半.
 Function LookMoveScale( float a_scale = 1.0,int flag = -1) global native
 
 ; |flag = 0 -X | flag =1 -Y | other =2 -X & Y
-; Return the current scale which applied to the player camera movement speed.
+; 返回镜头速度的缩放值.
 float Function GetLookMoveScale(int flag = -1) Global Native
 
 ; |flag = 0 -X | flag =1 -Y | other -X & Y
