@@ -17,11 +17,11 @@
 
 ## 覆盖玩家和玩家镜头的运动
 
-TrashUtility提供了一系列函数来覆盖玩家运动 `player movement` 和玩家镜头运动 `player camera movement`。
-**1.** 将玩家控制的左右运动视为沿着X轴的运动，将前后移动视为沿着Y轴的运动。
-**2.** 玩家镜头的运动同理，左右对应沿X轴，上下对应沿Y轴。
+TrashUtility提供了一系列函数来覆盖玩家运动 `player movement` 和玩家镜头运动 `player camera movement`.  
+**1.** 将玩家控制的左右运动视为沿着X轴的运动，将前后移动视为沿着Y轴的运动.  
+**2.** 玩家镜头的运动同理，左右对应沿X轴，上下对应沿Y轴.  
 
-使用 `flag` 变量来表示要在哪个方向上覆盖运动。
+使用 `flag` 变量来表示要在哪个方向上覆盖运动.  
 
 | 方向   | Flag |
 | :----- | :--- |
@@ -36,7 +36,7 @@ TrashUtility提供了一系列函数来覆盖玩家运动 `player movement` 和�
 ; |flag = 0 -X | flag =1 -Y | flag =2 -X & Y | flag =3 -X||Y | other -X||Y
 ```
 
-引入函数：
+为了使用以下函数，你需要在脚本中使用 Import 引入：
 
 ```papyrus
 Import Trash_PlayerControl
@@ -129,28 +129,28 @@ EndEvent
 
 ## 辅助容器（Auxiliary Collection）
 
-有两种不同类型的容器 `Auxiliary Array` 和 `Ref Map`
-辅助容器的启发来自JIP NVSE插件，其性质和 JIP NVSE 插件的 auxiliary variable interface 类似。
-（下文部分引用自：[https://geckwiki.com/index.php?title=Category:Auxiliary-Variable_Functions_(JIP)](https://geckwiki.com/index.php?title=Category:Auxiliary-Variable_Functions_(JIP))，但有所区别。）
+有两种不同类型的容器 `Auxiliary Array` 和 `Ref Map`.  
+辅助容器的启发来自JIP NVSE插件，其性质和 JIP NVSE 插件的 auxiliary variable interface 类似.  
+（下文部分引用自：[https://geckwiki.com/index.php?title=Category:Auxiliary-Variable_Functions_(JIP)](https://geckwiki.com/index.php?title=Category:Auxiliary-Variable_Functions_(JIP))，但有所区别。）.  
 
 ### 性质
 
-**1.** 一个 `Auxiliary Collection` 由 `Name (string)` 和它的“所有者” `Object (object reference/base form)` 定义。可以理解为键值对或映射 Object : Name 所以必须是唯一的。
+**1.** 一个 `Auxiliary Collection` 由 `Name (string)` 和它的“所有者” `Object (object reference/base form)` 定义。可以理解为键值对或映射 Object : Name 所以必须是唯一的.  
 
-注意，**不同的Object** 可以 “拥有” 同样名字的Collection，**同一个Object** 也可以 “拥有” 类型不同但名称（Name)相同的 容器，这两种情况不违反组合的独特性。一个 Object 可以 “拥有” 任意数量的容器。
-**2.** `Auxiliary Collection` 可以存储的值有float，reference/form。它们的类型可以根据赋值的类型动态改变。
+注意，**不同的Object** 可以 “拥有” 同样名字的Collection，**同一个Object** 也可以 “拥有” 类型不同但名称（Name)相同的 容器，这两种情况不违反组合的独特性。一个 Object 可以 “拥有” 任意数量的容器.  
+**2.** `Auxiliary Collection` 可以存储的值有float，reference/form。它们的类型可以根据赋值的类型动态改变.  
 
 ### 生命周期(Duration)
 
-一个 `Auxiliary Collection` 的生命周期，即它是永久（permanent）的（随存档存储）还是临时（temporary）的。
+一个 `Auxiliary Collection` 的生命周期，即它是永久（permanent）的（随存档存储）还是临时（temporary）的.  
 
 #### 永久容器
 
-永久容器的元素会写入存档。
+永久容器的元素会写入存档.  
 
 #### 临时容器
 
-临时容器不会写入存档，其只存在于当前的游戏会话，在退出游戏时就被移除。
+临时容器不会写入存档，其只存在于当前的游戏会话，在退出游戏时就被移除.  
 
 为容器名称添加前缀来决定其 `duration`：
 
@@ -159,23 +159,23 @@ EndEvent
 | *      | temporary |
 | 无前缀 | permanent |
 
-**例：**_"*MyAuxColl"_ 命名了一个 `temporary` 的collection
+**例：**_"*MyAuxColl"_ 命名了一个 `temporary` 的collection.  
 
 ### 可读取性
 
-`Auxiliary Collection` 更像一个全局容器，一经创建即可被所有脚本读取。
+`Auxiliary Collection` 更像一个全局容器，一经创建即可被所有脚本读取.  
 
 ### 与JIP NVSE插件的auxiliary variable interface和ref map的区别
 
-**1.** `Auxiliary Collection` 的名字是区分大小写的（我必须承认我疏忽了）。不过在使用时你应当确保使用独特的命名。
-**2.** 没有可读取性设定。
-**3.** 缺少遍历 refmap的简易方法。
-**4.** 目前不支持string类型的元素。
+**1.** `Auxiliary Collection` 的名字是区分大小写的（我必须承认我疏忽了）。不过在使用时你应当确保使用独特的命名.  
+**2.** 没有可读取性设定.  
+**3.** 缺少遍历 refmap的简易方法.  
+**4.** 目前不支持string类型的元素.  
 
 ### 辅助容器 相关函数
 
-如下所示，调用这些函数需要你明确地给出 `Holder(Reference\Form)` 和 `Collection Name`。
-你不需要手动构建 `Auxiliary Collection`，它会在你使用任意setter函数时被自动创建。
+如下所示，调用这些函数需要你明确地给出 `Holder(Reference\Form)` 和 `Collection Name`.  
+你不需要手动构建 `Auxiliary Collection`，它会在你使用任意setter函数时被自动创建.  
 
 引入函数：
 
@@ -233,8 +233,8 @@ Int function AuxArraySetFromFormList(Form Holder, String CollectionName, FormLis
 
 #### Reference Map
 
-Map是一个关联容器，这里的ref map使用 `reference/form`作为key value。
-RefMap内部的元素按FormID升序排列。
+Map是一个关联容器，这里的ref map使用 `reference/form`作为key value.  
+RefMap内部的元素按FormID升序排列.  
 
 ```papyrus
 ;Gets the value type of the element with a Key. If no such collection exists, no such Key exists in collection or value type is not float, return 0.
@@ -365,9 +365,9 @@ bool Function PlaySoundAtPoint (Form _Sound,float x,float y,float z) Global Nati
 
 ### 对群体施法
 
-输入 `_Caster` 和 `_Spell(Spell,Enchantment,AlchemyItem,Scroll,Ingredient)`.
-若 `_CastToCaster` == false，即便施法者 `_Caster` 位于施法半径 `_Radiu` 内，`_Spell` 也不会被施法给 `_Caster`。
-若 `_Center` = None，默认以 `_Caster` 为施法中心，立即对施法半径 `_Radiu` 内的目标施法 `_Spell`。
+输入 `_Caster` 和 `_Spell(Spell,Enchantment,AlchemyItem,Scroll,Ingredient)`.  
+若 `_CastToCaster` == false，即便施法者 `_Caster` 位于施法半径 `_Radiu` 内，`_Spell` 也不会被施法给 `_Caster`.  
+若 `_Center` = None，默认以 `_Caster` 为施法中心，立即对施法半径 `_Radiu` 内的目标施法 `_Spell`.  
 
 ```papyrus
 Form[] Function InstantCastToActors(ObjectReference _Caster,Form _Spell,float _Radius = 0.0,bool _BlameCaster=False,bool _CastToCaster = false,ObjectReference _Center = None) Global Native
@@ -382,7 +382,7 @@ Form[] Function InstantCastToActorsWithFilterAlt(ObjectReference _Caster,Form _S
 
 ### 时间流速
 
-设定时间流速倍率。
+单独设定时间流速倍率.  
 
 ```papyrus
 ; If have no any input will recover both timemult
@@ -395,8 +395,8 @@ float Function GetSlowTimeMult(bool _GetWorldTimeMult = true) Global Native
 
 ### 施加打击
 
-立即对 victim 施加打击。
-以下函数会触发 `OnHit` Event.
+立即对 victim 施加打击.  
+以下函数会触发 `OnHit` 事件.  
 
 ```papyrus
 
@@ -439,11 +439,11 @@ float Function GetFloatMin() Global Native
 
 # 控制台集成
 
-部分上述函数已被集成为控制台命令，此时其不区分大小写但所有输入参数都应**明确给定**。
+部分上述函数已被集成为控制台命令，此时其不区分大小写但所有输入参数都应**明确给定**.  
 
 ### 用控制台查询函数
 
-输入 `trashutility` 会输出**所有可用的控制台函数**。
-输入 `trashutility-function` 会输出**所有控制台可用的杂项函数**。
-输入 `trashutility-playerctrl` 会输出**所有控制台可用的玩家运动与玩家镜头运动覆盖函数**。
-输入 `trashutility-collection` 会输出**所有控制台可用的辅助容器函数。**
+输入 `trashutility` 会输出**所有可用的控制台函数**.  
+输入 `trashutility-function` 会输出**所有控制台可用的杂项函数**.  
+输入 `trashutility-playerctrl` 会输出**所有控制台可用的玩家运动与玩家镜头运动覆盖函数**.  
+输入 `trashutility-collection` 会输出**所有控制台可用的辅助容器函数**.  
