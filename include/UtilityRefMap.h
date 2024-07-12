@@ -44,9 +44,9 @@ namespace TrashUtility::UtilityRefMap
 	// get float from map with key
 	inline float MapGetFloat(VM_VMStackID_FunTag, const Holder holder, const CollectionName name,RE::TESForm* arg_Key) 
 	{
-		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key)) return false;
+		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter,holder, name, arg_Key)) return 0.0f;
 		auto flt = TRASHMANAGER->MapGetFloatWithKey(holder, name, arg_Key);
-		if (isnan(flt)) logs::critical("Failed to execute the function: RefMapGetFloat ");
+		if (isnan(flt)) { logs::critical("Failed to execute the function: RefMapGetFloat "); return 0.0f; }
 		return flt;
 	}
 
@@ -118,6 +118,14 @@ namespace TrashUtility::UtilityRefMap
 		return ret;
 	}
 
+	inline int MapGetValueType(VM_VMStackID_FunTag, const Holder holder, const CollectionName name, RE::TESForm* arg_Key)
+	{
+		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter, holder, name)) return None;
+		auto ret = TRASHMANAGER->MapGetValueType(holder, name, arg_Key);
+		if (ret == None) logs::critical("Failed to execute the function: MapGetValueType ");
+		return (int)ret;
+	}
+
 	inline bool binding(VM* _vm)
 	{
 		_vm->RegisterFunction("RefMapEmpty"sv, pex_name_collection, isMapEmpty);
@@ -133,6 +141,7 @@ namespace TrashUtility::UtilityRefMap
 		_vm->RegisterFunction("RefMapErase"sv, pex_name_collection, MapErase);
 		_vm->RegisterFunction("RefMapEraseAll"sv, pex_name_collection, MapEraseAll);
 		_vm->RegisterFunction("RefMapEraseInvalidKey"sv, pex_name_collection, MapEraseInvalidKey);
+		_vm->RegisterFunction("RefMapGetType"sv, pex_name_collection, MapGetValueType);
 		return true;
 	}
 }

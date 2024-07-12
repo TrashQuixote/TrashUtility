@@ -44,6 +44,7 @@ public:
 //Setter
 		inline void SetFltValue(RE::TESForm* arg_key, const float& arg_flt) const;
 		inline void SetRefValue(RE::TESForm* arg_key, const ref arg_ref) const;
+		std::size_t GetValType(RE::TESForm* arg_key);
 	};
 }
 
@@ -151,5 +152,25 @@ namespace TrashCollection::RefMap
 	inline void TrashRefMap::SetRefValue(RE::TESForm* arg_key, const ref arg_ref) const {
 		if (HasKey(arg_key)) this->RefMap->at(RefMapKey{ arg_key }) = elem{arg_ref};
 		else this->RefMap->insert(std::pair<RefMapKey, elem>(RefMapKey{ arg_key }, elem{ arg_ref }));
+	}
+
+	//GetValType
+	inline std::size_t TrashRefMap::GetValType(RE::TESForm* arg_key)
+	{
+		if (!HasKey(arg_key)) return None;
+		if (auto val = RefMap->at(RefMapKey{ arg_key }); val.index() != NotInit)
+		{
+			switch (val.index())
+			{
+			case Ref:
+				return Ref;
+			case Float:
+				return Float;
+			default:
+				return None;
+			}
+		}
+		else PrintRetError(NotInit);
+		return None;
 	}
 }

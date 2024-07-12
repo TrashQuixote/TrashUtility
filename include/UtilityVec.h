@@ -56,9 +56,9 @@ namespace TrashUtility::UtilityVec
 	inline float VecGetFloat(VM_VMStackID_FunTag, const Holder holder, const CollectionName name, int index = DefaultIndex)
 	{
 		if (!Check_Holder_CollectionName_Args(VM_VMStackID_Parameter, holder, name)) return 0.0f;
-		auto ret = TRASHMANAGER->VecGetFloat(holder, name, index);
-		if (isnan(ret)){ logs::critical("Failed to execute the function: AuxArrayGetFloat "); return 0.0f; }
-		return ret;
+		auto flt = TRASHMANAGER->VecGetFloat(holder, name, index);
+		if (isnan(flt)){ logs::critical("Failed to execute the function: AuxArrayGetFloat "); return 0.0f; }
+		return flt;
 	}
 	
 	// index < 0 - get back elem or get ref in specific index

@@ -190,16 +190,16 @@ namespace TrashConsoleAddon::FuncInformation
 		PlaySoundAtPoint ,
 		InstantCastToActors ,
 		InstantCastToActorsWithFilter ,
-		DumpCollection ,
 		ApplyMeleeHit ,
 		ApplyHit ,
 		SetSlowTimeMult ,
 		GetSlowTimeMult ,
 		GetInSameCellOrWorldSpace ,
-		
+
 		DumpAllCollection ,
 		DumpAllAuxArr ,
 		DumpAllRefMap ,
+		DumpCollection,
 
 		LookMovementScale ,
 		IsLookMovementScale ,
@@ -729,7 +729,6 @@ constexpr auto HELP_Coll = "trashutility-collection";
 	
 		
 		TrashFuncVec::GetSingleton();
-		//REL::Relocation<std::uintptr_t> _original{ REL::ID(52065).address() + 0xE2 };
 		REL::Relocation<std::uintptr_t> _original{ REL::VariantID(52065, 52952,0), REL::VariantOffset(0xE2, 0x52, 0) };
 		auto& trampoline = SKSE::GetTrampoline();
 		_Ori_CompileAndRun = trampoline.write_call<5>(_original.address(), CompileAndRun);

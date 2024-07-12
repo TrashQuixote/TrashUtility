@@ -338,7 +338,6 @@ namespace TrashSerialization::Coll
 
 	static void SaveCollectionCallBack(SKSE::SerializationInterface* _interface) {
 		_UNIQUE_LOCK
-		logs::info("Save Collection");
 		TrashManager::GetSingleton()->RemoveInvaildHolderFromMap(false);
 		SaveVec(_interface);
 		SaveRefMap(_interface);
@@ -350,7 +349,6 @@ namespace TrashSerialization::Coll
 	{
 		_UNIQUE_LOCK
 		TrashManager::GetSingleton()->RemoveSaveBakedCollectionFromMap();
-		logs::info("Load Collection");
 		std::uint32_t type;
 		std::uint32_t version;
 		std::uint32_t length;

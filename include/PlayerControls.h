@@ -488,8 +488,8 @@ namespace Trash_Function::Control
 	}
 
 // GetMoveOverwrite
-	inline float Papyrus_GetMoveOverwrite(RE::StaticFunctionTag*, int flag = -1) {
-		return GetMoveOverwrite(flag);
+	inline int Papyrus_GetMoveOverwrite(RE::StaticFunctionTag*, int flag = -1) {
+		return static_cast<int>(GetMoveOverwrite(flag));
 	}
 
 // LookMovementScale
