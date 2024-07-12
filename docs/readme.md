@@ -1,4 +1,4 @@
-# Introduce
+# 介绍
 
 **TrashUtility**是基于CommonLibSSE-NG构建的插件，旨在为《上古卷轴5：天际 特别版》提供新的papyrus函数。
 
