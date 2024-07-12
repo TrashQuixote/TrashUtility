@@ -9,7 +9,7 @@ Download :[NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/12407
 [meh321 for Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444?).  
 [Fenix31415 for his patience and guidance](https://github.com/fenix31415).  
 [Qudix for ng template](https://github.com/qudix/commonlibsse-ng-template).  
-[ZhangYueZhi](https://next.nexusmods.com/profile/ZhangYueZhi/about-me) 制作中文文档.  
+[ZhangYueZhi 制作中文文档](https://next.nexusmods.com/profile/ZhangYueZhi/about-me) .  
 
 # Function
 ## Player Movement and Player Camera Movement Override
