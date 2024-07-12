@@ -102,6 +102,8 @@ float Function GetLookMoveOverwrite(int flag = -1) global native
 **Example**
 ```papyrus
 scriptName RandomScript extends activemagiceffect
+Import Trash_PlayerControl
+
 Event OnEffectStart(Actor akTarget, Actor akCaster)
     if akTarget == game.getplayer()
         ReverseLook(true)    ; Reverse player camera movement direction
