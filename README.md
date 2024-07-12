@@ -99,6 +99,21 @@ Function SetLookMoveOverwrite(float _movement = 0.0,int flag = -1) global native
 ; Return the current movement which Overwrite to the player camera movement speed.
 float Function GetLookMoveOverwrite(int flag = -1) global native   
 ```
+**Example**
+```papyrus
+scriptName RandomScript extends activemagiceffect
+Event OnEffectStart(Actor akTarget, Actor akCaster)
+    if akTarget == game.getplayer()
+        ReverseLook(true)    ; Reverse player camera movement direction
+    endif
+EndEvent
+
+Event OnEffectFinish(Actor akTarget, Actor akCaster)
+    if akTarget == game.getplayer()
+        ReverseLook()    ; Recover 
+    endif
+EndEvent
+```
 
 ## Auxiliary Collection
 There are two different types of collection: `Auxiliary Array` and `Ref Map`
