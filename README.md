@@ -1,13 +1,22 @@
 # Introduce
-**TrashUtility** is a plugin built with CommonLib-NG. It aims to provide new papyrus functions for The Elder Scrolls V: Skyrim Special Edition.
+**TrashUtility** is a plugin built with CommonLibSSE-NG. It aims to provide new papyrus functions for The Elder Scrolls V: Skyrim Special Edition.
 
-NEXUS:_
+Download :[NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/124076)
+
+# Credit
+[SKSE Team](https://skse.silverlock.org/).  
+[People who contribute to commonlib-ng](https://github.com/CharmedBaryon/CommonLibSSE-NG).  
+[JIP that inspired me a lot](https://github.com/jazzisparis/JIP-LN-NVSE).  
+[meh321 for Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444?).  
+[Fenix31415 for his patience and guidance](https://github.com/fenix31415).  
+[Qudix for ng template](https://github.com/qudix/commonlibsse-ng-template).  
 
 # Function
 ## Player Movement and Player Camera Movement Override
 TrashUtility provides a set of functions that can be used to override `player movement` and `player camera movement`.  
 **1.** In Player Control, the player's movement to the left and right is considered movement along the x-axis, while movement forward and backward is considered movement along the y-axis.  
 **2.** Similarly, the player's camera movement to the left and right is considered movement along the x-axis, while movement up and down is considered movement along the y-axis.  
+**3.** All Override will recover after loading a save
 
 In the following functions, the `flag` variable is used to represent the override of movement in the specified axis direction.  
 | Direction   | Flag        |
@@ -20,6 +29,10 @@ In the following functions, the `flag` variable is used to represent the overrid
 **For convenience**, I will explain the values of `flag` parameter using the following format like:.  
 ```papyrus
 ; |flag = 0 -X | flag =1 -Y | flag =2 -X & Y | flag =3 -X||Y | other -X||Y
+```
+If you want to use function below you need to add
+```papyrus
+Import Trash_PlayerControl
 ```
 
 ```papyrus
@@ -87,10 +100,30 @@ Function SetLookMoveOverwrite(float _movement = 0.0,int flag = -1) global native
 ; Return the current movement which Overwrite to the player camera movement speed.
 float Function GetLookMoveOverwrite(int flag = -1) global native   
 ```
+**Example**
+```papyrus
+scriptName RandomScript extends activemagiceffect
+Import Trash_PlayerControl
+
+Event OnEffectStart(Actor akTarget, Actor akCaster)
+    if akTarget == game.getplayer()
+        ReverseLook(true)    ; Reverse player camera movement direction
+    endif
+EndEvent
+
+Event OnEffectFinish(Actor akTarget, Actor akCaster)
+    if akTarget == game.getplayer()
+        ReverseLook()    ; Recover 
+    endif
+EndEvent
+```
+
 ## Auxiliary Collection
 There are two different types of collection: `Auxiliary Array` and `Ref Map`
 The inspiration and ideas for the Auxiliary Collection come from the JIP plugin, and its Properties is similar to the auxiliary variable interface provided by the JIP plugin.  
 (Some of contents below quoted from: <https://geckwiki.com/index.php?title=Category:Auxiliary-Variable_Functions_(JIP)> but there is a difference between them).  
+
+
 ### Properties
 **1.** An `Auxiliary Collection` is defined by a `Name (string)` and an `Object (object reference/base form)` that "owns" it. This Object:Name pair must, therefore, be unique. Note that **different Objects** "own" a Collection with the same Name, or a **same Object** "own" different type of collections with the same name, will still count as a unique pair. Any Object may "own" any number of Collection.  
 **2.** `Auxiliary Collection` can store either float, reference/form values.their type changes dynamically, according to the type of value assigned to them.
@@ -122,6 +155,11 @@ Determine its `duration` by adding a special prefix to collection name.
 ### Auxiliary Collection Function
 As you can see below, you need to explicitly pass in `Holder(Reference\Form)` and `Collection Name` to call those function.  
 You don't need to construct a `Auxiliary Collection`.When you use a setter function, the `Auxiliary Collection` will be created **automatically**.  
+
+If you want to use function below you need to add
+```papyrus
+Import Trash_Collection
+```
 #### Auxiliary Array
 
 ```papyrus
@@ -228,6 +266,10 @@ function DumpAllRefMap() global native
 function DumpAllCollection() global native
 ```
 ## Misc Function
+If you want to use function below you need to add 
+```papyrus
+Import Trash_Function
+```
 ### Distance
 ```papyrus
 ;Same as original getdistance function, Get 3D Distance between two reference
