@@ -172,7 +172,7 @@ EndEvent
 **3.** 缺少遍历 refmap的简易方法。
 **4.** 目前不支持string类型的元素。
 
-### Auxiliary Collection 相关函数
+### 辅助容器 相关函数
 
 如下所示，调用这些函数需要你明确地给出 `Holder(Reference\Form)` 和 `Collection Name`。
 你不需要手动构建 `Auxiliary Collection`，它会在你使用任意setter函数时被自动创建。
