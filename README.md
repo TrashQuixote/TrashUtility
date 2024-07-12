@@ -3,6 +3,12 @@
 
 NEXUS:_
 
+# Credit
+[SKSE Team](https://skse.silverlock.org/).  
+[People who contribute to commonlib-ng](https://github.com/CharmedBaryon/CommonLibSSE-NG).  
+[meh321 for Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444?).  
+
+
 # Function
 ## Player Movement and Player Camera Movement Override
 TrashUtility provides a set of functions that can be used to override `player movement` and `player camera movement`.  
