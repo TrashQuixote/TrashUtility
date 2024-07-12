@@ -1,5 +1,5 @@
 # Introduce
-**TrashUtility** is a plugin built with CommonLib-NG. It aims to provide new papyrus functions for The Elder Scrolls V: Skyrim Special Edition.
+**TrashUtility** is a plugin built with CommonLibSSE-NG. It aims to provide new papyrus functions for The Elder Scrolls V: Skyrim Special Edition.
 
 [NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/124076)
 
