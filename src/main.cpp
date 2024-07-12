@@ -29,10 +29,8 @@ void InitLogging()
 void InitializeMessaging() {
     if (!SKSE::GetMessagingInterface()->RegisterListener([](SKSE::MessagingInterface::Message* message) {
         switch (message->type) {
-            // Skyrim game events.
-            // Data will be the name of the loaded save.
 		case SKSE::MessagingInterface::kPostLoadGame:
-			Trash_Function::Control::RecoverCtrl();
+			Trash_Function::Control::RecoverCtrl();	
 			break;
         }
         })) {
