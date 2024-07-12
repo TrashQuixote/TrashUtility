@@ -16,7 +16,7 @@ Download :[NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/12407
 TrashUtility provides a set of functions that can be used to override `player movement` and `player camera movement`.  
 **1.** In Player Control, the player's movement to the left and right is considered movement along the x-axis, while movement forward and backward is considered movement along the y-axis.  
 **2.** Similarly, the player's camera movement to the left and right is considered movement along the x-axis, while movement up and down is considered movement along the y-axis.  
-**3.** All Override to movement will recover after loading a save
+**3.** All Override will recover after loading a save
 
 In the following functions, the `flag` variable is used to represent the override of movement in the specified axis direction.  
 | Direction   | Flag        |
