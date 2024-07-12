@@ -2,7 +2,6 @@
 **TrashUtility** is a plugin built with CommonLibSSE-NG. It aims to provide new papyrus functions for The Elder Scrolls V: Skyrim Special Edition.
 
 Download :[NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/124076)
-
 # Credit
 [SKSE Team](https://skse.silverlock.org/).  
 [People who contribute to commonlib-ng](https://github.com/CharmedBaryon/CommonLibSSE-NG).  
@@ -10,6 +9,7 @@ Download :[NEXUS PAGE](https://www.nexusmods.com/skyrimspecialedition/mods/12407
 [meh321 for Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444?).  
 [Fenix31415 for his patience and guidance](https://github.com/fenix31415).  
 [Qudix for ng template](https://github.com/qudix/commonlibsse-ng-template).  
+[ZhangYueZhi](https://next.nexusmods.com/profile/ZhangYueZhi/about-me) 制作中文文档.  
 
 # Function
 ## Player Movement and Player Camera Movement Override
