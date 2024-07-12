@@ -177,7 +177,7 @@ EndEvent
 如下所示，调用这些函数需要你明确地给出 `Holder(Reference\Form)` 和 `Collection Name`.  
 你不需要手动构建 `Auxiliary Collection`，它会在你使用任意setter函数时被自动创建.  
 
-引入函数：
+为了使用以下函数，你需要在脚本中使用 Import 引入：
 
 ```papyrus
 Import Trash_Collection
@@ -295,7 +295,7 @@ function DumpAllCollection() global native
 
 ## 杂项函数
 
-引入函数：
+为了使用以下函数，你需要在脚本中使用 Import 引入：
 
 ```papyrus
 Import Trash_Function
