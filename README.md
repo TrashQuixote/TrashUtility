@@ -6,6 +6,7 @@ NEXUS:_
 # Credit
 [SKSE Team](https://skse.silverlock.org/).  
 [People who contribute to commonlib-ng](https://github.com/CharmedBaryon/CommonLibSSE-NG).  
+[JIP that inspired me a lot](https://github.com/jazzisparis/JIP-LN-NVSE).  
 [meh321 for Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444?).  
 [Fenix31415 for his patience and guidance](https://github.com/fenix31415).  
 [Qudix for ng template](https://github.com/qudix/commonlibsse-ng-template).  
