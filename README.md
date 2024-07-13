@@ -329,6 +329,7 @@ bool Function PlaySoundAtPoint (Form _Sound,float x,float y,float z) Global Nati
 Specify a `_Caster` and `_Spell(Spell,Enchantment,AlchemyItem,Scroll,Ingredient)`.  
 When `_CastToCaster` == false ,The `_Spell` will not cast to `_Caster` even if the `_Caster` is within the `_Radiu`.  
 When `_Center` = None, will regard `_Caster` as center, for targets within the `_Radiu` cast `_Spell` immediately.  
+Returns an array of references affected by the spell
 ```papyrus
 Form[] Function InstantCastToActors(ObjectReference _Caster,Form _Spell,float _Radius = 0.0,bool _BlameCaster=False,bool _CastToCaster = false,ObjectReference _Center = None) Global Native
 
