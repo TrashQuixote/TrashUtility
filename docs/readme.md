@@ -20,6 +20,7 @@
 TrashUtility提供了一系列函数来覆盖玩家运动 `player movement` 和玩家镜头运动 `player camera movement`.  
 **1.** 将玩家控制的左右运动视为沿着X轴的运动，将前后移动视为沿着Y轴的运动.  
 **2.** 玩家镜头的运动同理，左右对应沿X轴，上下对应沿Y轴.  
+**3.** 所有应用的运动覆写会在读取存档后还原.  
 
 使用 `flag` 变量来表示要在哪个方向上覆盖运动.  
 
@@ -368,7 +369,7 @@ bool Function PlaySoundAtPoint (Form _Sound,float x,float y,float z) Global Nati
 输入 `_Caster` 和 `_Spell(Spell,Enchantment,AlchemyItem,Scroll,Ingredient)`.  
 若 `_CastToCaster` == false，即便施法者 `_Caster` 位于施法半径 `_Radiu` 内，`_Spell` 也不会被施法给 `_Caster`.  
 若 `_Center` = None，默认以 `_Caster` 为施法中心，立即对施法半径 `_Radiu` 内的目标施法 `_Spell`.  
-
+返回一个存储受影响目标的数组.  
 ```papyrus
 Form[] Function InstantCastToActors(ObjectReference _Caster,Form _Spell,float _Radius = 0.0,bool _BlameCaster=False,bool _CastToCaster = false,ObjectReference _Center = None) Global Native
 
